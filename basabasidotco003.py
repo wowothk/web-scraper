@@ -4,12 +4,12 @@ import pandas as pd
 from collections import defaultdict
 
 # semua page di basabasi.co
-
-
+# get all articles in an page
 def find_archive(soupHome):
     """
     soupHome:  BeautifulSoup load page
     """
+
     judul = list()
     tanggal = list()
     penulis = list()
@@ -43,6 +43,7 @@ def find_archive(soupHome):
         "url": url
     }
 
+# merge dict
 def merge_two_dict(d1, d2):
     dfinal = defaultdict(list)
     for i in (d1, d2):
@@ -51,15 +52,11 @@ def merge_two_dict(d1, d2):
     return dfinal
 
 driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
-
 data = dict()
-
-driver.get("https://basabasi.co/page/178/")
+driver.get("https://basabasi.co/page/178/") # replace this link to https://basabasi.co
 
 content = driver.page_source
 soupHome = BeautifulSoup(content)
-
-
 data = find_archive(soupHome)
 
 # other page
@@ -73,7 +70,5 @@ while page != None:
     cek = soupHome.find('ul', attrs={'class': 'page-numbers'}).find('a',attrs={'class':"next page-numbers"})
     page = None if isinstance(cek, NoneType) else cek['href']
 
-
 data = pd.DataFrame(data)
-
 data.to_csv('basabasidotcoallpage.csv')
