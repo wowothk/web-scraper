@@ -53,7 +53,7 @@ def merge_two_dict(d1, d2):
 
 driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
 data = dict()
-driver.get("https://basabasi.co/page/178/") # replace this link to https://basabasi.co
+driver.get("https://basabasi.co") # replace this link to https://basabasi.co
 
 content = driver.page_source
 soupHome = BeautifulSoup(content)
